@@ -8,6 +8,12 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(morgan('dev'));
+
+app.use((req, res, next) => {
+    console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
+    next();
+});
+
 app.use(cors());
 
 // Connect to MongoDB
