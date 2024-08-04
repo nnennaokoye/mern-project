@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import AddTask from './AddTask';
 import { Provider } from 'react-redux';
@@ -10,9 +8,9 @@ export default {
     component: AddTask,
 } as ComponentMeta<typeof AddTask>;
 
-const Template: ComponentStory<typeof AddTask> = (args) => (
+const Template: ComponentStory<typeof AddTask> = () => (  
     <Provider store={store}>
-        <AddTask {...args} />
+        <AddTask />
     </Provider>
 );
 

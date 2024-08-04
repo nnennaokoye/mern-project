@@ -1,15 +1,14 @@
-// src/taskSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AppDispatch } from './store';
 
-interface Task {
+export interface Task {
     id: string;
     title: string;
     completed: boolean;
 }
 
-interface TaskState {
+export interface TaskState {
     tasks: Task[];
 }
 

@@ -1,19 +1,32 @@
-// src/components/TaskList.tsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState, AppDispatch } from '../store';
 import { fetchTasks, modifyTask } from '../taskSlice';
 
+interface Task {
+    id: string;
+    title: string;
+    completed: boolean;
+}
+
 const TaskList: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch(); 
     const tasks = useSelector((state: RootState) => state.tasks.tasks);
 
     useEffect(() => {
-        dispatch(fetchTasks());
+        const fetchData = async () => {
+            try {
+                await dispatch(fetchTasks()); 
+            } catch (error) {
+                console.error('Failed to fetch tasks:', error);
+            }
+        };
+
+        fetchData();
     }, [dispatch]);
 
     const handleToggleComplete = (taskId: string) => {
-        const task = tasks.find(t => t.id === taskId);
+        const task = tasks.find((t: Task) => t.id === taskId);
         if (task) {
             dispatch(modifyTask({ ...task, completed: !task.completed }));
         }
@@ -21,16 +34,20 @@ const TaskList: React.FC = () => {
 
     return (
         <ul>
-            {tasks.map(task => (
-                <li key={task.id}>
-                    <input 
-                        type="checkbox" 
-                        checked={task.completed} 
-                        onChange={() => handleToggleComplete(task.id)} 
-                    />
-                    {task.title}
-                </li>
-            ))}
+            {tasks.length > 0 ? (
+                tasks.map((task: Task) => (
+                    <li key={task.id}>
+                        <input 
+                            type="checkbox" 
+                            checked={task.completed} 
+                            onChange={() => handleToggleComplete(task.id)} 
+                        />
+                        {task.title}
+                    </li>
+                ))
+            ) : (
+                <li>No tasks available</li>
+            )}
         </ul>
     );
 };

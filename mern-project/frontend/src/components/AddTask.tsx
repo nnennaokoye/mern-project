@@ -1,11 +1,11 @@
-// src/components/AddTask.tsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createTask } from '../taskSlice';
+import { AppDispatch } from '../store';
 
 const AddTask: React.FC = () => {
     const [title, setTitle] = useState('');
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleAddTask = () => {
         if (title.trim()) {
