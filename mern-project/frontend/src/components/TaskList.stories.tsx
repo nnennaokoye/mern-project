@@ -15,7 +15,4 @@ const Template: ComponentStory<typeof AddTask> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-    title: 'My Task',
-    onAdd: () => console.log('Task added!'),
-};
+Default.args = {}; 
